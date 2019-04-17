@@ -111,9 +111,45 @@ false.
 [説明, 考察]
 predecessor2(X,Z)は、XとZが親であるなら、XはZの親である。また、YはZの親であり、かつ、XはYの祖先であるなら、XはZの祖先であるともルールづけている。predecessorとpredecessor2は同じ結果になるので、定義としては適切である。しかし、この新しい定義のグラフはXとYが祖先であることから、再帰的に求めているため、図1.7と対応つけることはできない。
 */
-							      
+
 %練習2.1 どんな種類のオブジェクトか(テキスト34ページ)
 /*
+?- Diana = 1.
+Diana = 1.
+
+?- diana = 1.
+false.
+
+?- 'Diana' = 1.
+false.
+
+_diana = 1.
+_diana = 1.
+
+?- 'Diana goes south' = 1.
+false
+
+?- goes(diana,south).
+ERROR: Undefined procedure: goes/2 (DWIM could not correct goal)
+
+45.
+ERROR: Type error: `callable' expected, found `45' (an integer)
+ERROR: In:
+ERROR:    [7] <user>
+
+ERROR: Syntax error: Operator expected
+ERROR:
+ERROR: ** here **
+ERROR: 5(X,Y) .
+
+?- +(north,west).
+ERROR: Undefined procedure: (+)/2 (DWIM could not correct goal)
+?- three(Black(Cats)).
+ERROR: Syntax error: Operator expected
+ERROR: three(Blac
+ERROR: ** here **
+ERROR: k(Cats)) .
+
 [説明, 考察]
 (a)
  頭文字が大文字のため、変数である。
@@ -136,3 +172,71 @@ predecessor2(X,Z)は、XとZが親であるなら、XはZの親である。ま�
 (j)
  構造の成分を括弧でくくってあるため、構造である。
 */
+
+%練習2.3 マッチング成功、失敗(テキスト40ページ)
+/*
+(実行例)
+?- point(A,B) :- point(1,2).
+A = 1,
+B = 2.
+
+?- point(A,B)=point(X,Y,Z).
+false.
+
+?- plus(2,2) = 4.
+false.
+
+?- +(2,D) = +(E,2).
+D = E, E = 2.
+
+?- triangle(point(-1,0),P2,P3)=triangle(P1,point(1,0),point(0,Y)).
+P2 = point(1, 0),
+P3 = point(0, Y),
+P1 = point(-1, 0).
+
+[説明, 考察]
+(a)
+ 成功
+(b)
+ 失敗
+(c)
+ 失敗
+(d)
+ 成功
+(e)
+ 成功
+
+ (e)で定義した三角クラスは、点(-1,0),(1,0),(0,Y)とする三角であることがわかる。
+*/
+%練習2.5 矩形を定義するプログラム
+% [述語の説明]
+%rectangle(P1,P2,P3,P4) : P1かつP2かつP3かつP4な矩形である。
+%regular(R):Rは通常の矩形、つまり、垂直と水平な辺をである。
+%point(X,Y):XかつYな座標である。
+regular(rectangle(point(X1,Y1),point(X2,Y1),point(X1,Y3),point(X2,Y3))).
+/*
+(実行例)
+?- regular(rectangle(point(1,1),point(2,1),point(1,2),point(2,2))).
+true.
+
+?- regular(rectangle(point(0,1),point(2,3),point(3,2),point(1,0))).
+false.
+
+[説明, 考察]
+regularが真となるには、以下の3つの条件が必要である。
+(1)Pが頭文字である変数はpoint(X,Y)である。
+(2)それぞれ上下のX座標が等しい。
+(3)それぞれ左右のY座標が等しい。
+以上を満たすような定義を作る必要がある。そこで、まず、regular(R)のRをrectangle(P1,P2,P3,P4)と置き換える。
+次に、(1)よりそれぞれ以下のようにする。
+・P1 = point(X1,Y1).
+・P2 = point(X2,Y2).
+・P3 = point(X3,Y3).
+・P4 = point(X4,Y4).
+以上をさらに、条件(3),(4)を満たすために、以下のよう置き換える。
+・Y2 -> Y1
+・X3 -> X1
+・X4 -> X2
+・Y4 -> Y3
+以上のようにすることで、題意を満たす定義ができた。
+ */
