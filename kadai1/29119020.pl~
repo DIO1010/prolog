@@ -1,9 +1,0 @@
-parent(pam , bob).
-parent(tom , bob).
-parent(tom , liz).
-parent(bob , ann).
-male(tom).
-male(bob).
-father(X , Y) :- parent(X , Y) , male(X).
-ancestor(X , Y) :- prent(X , Y).
-ancestor(X , Y) :- parent(X , Z) , ancestor(Z , Y).
