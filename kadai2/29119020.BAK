@@ -144,11 +144,11 @@ ERROR: 5(X,Y)) .
  ?- compound(+(north,west)).
 true.
 
-?- compound(three(Black(Cats))).
+?- three(Black(Cats)).
 ERROR: Syntax error: Operator expected
-ERROR: compound(three(Blac
+ERROR: three(Blac
 ERROR: ** here **
-ERROR: k(Cats))) .
+ERROR: k(Cats)) .
 
 [説明, 考察]
 (a)
